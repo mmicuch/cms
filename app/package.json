@@ -15,12 +15,10 @@
     "crypto-js": "^4.2.0",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
-    "express": "^4.21.2",
+    "express": "^4.21.0",
     "express-flash-message": "^3.0.2",
     "express-session": "^1.18.1",
-    "multer": "^1.4.5-lts.1",
     "mysql2": "^3.11.3",
-    "nunjucks": "^3.2.4",
-    "session-file-store": "^1.5.0"
+    "nunjucks": "^3.2.4"
   }
 }

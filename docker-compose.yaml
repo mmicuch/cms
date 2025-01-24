@@ -3,7 +3,7 @@ services:
     container_name: cms-app
 
     build:
-      context: ./docker/build/node_js
+      context: docker/build/node_js
 
     environment:
       DB_HOST: cms-db
@@ -20,7 +20,7 @@ services:
   db:
     container_name: cms-mariadb
     build:
-      context: ./docker/build/mariadb
+      context: docker/build/mariadb
     environment:
       MARIADB_DATABASE: cms
       MARIADB_ROOT_PASSWORD: ${DB_ROOT_PWD}

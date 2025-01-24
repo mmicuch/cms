@@ -13,18 +13,18 @@
                         <a type="button" class="btn btn-info float-right" href="/article/edit/{{ article.id }}">
                             <span class="material-symbols-outlined">edit</span>
                         </a>
-                        <a type="button" class="btn btn-danger" href="/article/delete/{{ article.id }}" onclick="return confirm('Naozaj chcete vymazať tento článok?')">
+                        <a type="button" class="btn btn-danger" href="/article/delete/{{ article.id }}">
                             <span class="material-symbols-outlined">delete</span>
                         </a>
-
                     </div>
                 {% endif %}
             </div>
             <div class="card-body">
-                {% if article.id | img_exists %}
-                    <img class="img-thumbnail" style="float: left; margin: 0 10px 10px 0" src="/uploads/{{ article.id }}.jpg">
-                {% endif %}
-                {{ article.content | safe }}
+               <div> {{ article.content | safe }} </div>
+               <div> {{ article.typPodujatia | safe }}</div>
+                <div> {{ article.datum | formatDate('dd. MM. yyyy') }}</div>
+                <div>{{ article.miesto | safe }}</div>
+                <div>{{ article.region | safe}}</div>
             </div>
             <div class="card-footer text-end">
                 {{ article.lastUpdate | formatDate('dd. MM. yyyy H:mm:ss') }}

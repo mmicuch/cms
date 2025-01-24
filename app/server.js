@@ -4,7 +4,6 @@ import fs from 'node:fs';
 import {fileURLToPath} from 'url';
 import {initNunjucksEnv} from './service/TemplateEngine.js';
 import sessions from "express-session";
-import SessionFileStore from "session-file-store";
 import flash from 'express-flash-message';
 import {IndexController} from './controller/IndexController.js';
 import {UserController} from './controller/UserController.js';
@@ -18,18 +17,12 @@ const app = express();
 
 initNunjucksEnv(app);
 
-const FileStore = SessionFileStore(sessions);
-
 app.use(sessions({
     name: "moje.session.id",
-    store: new FileStore({
-        path: './sessions',
-        retries: 0
-    }),
     secret: "tajne-heslo",
     saveUninitialized: true,
     cookie: {maxAge: 1000 * 60 * 60 * 24}, // platnost cookie 1 den
-    resave: true,
+    resave: true
 }));
 
 app.use(flash({
@@ -60,4 +53,4 @@ app.use(function (req, res) {
 });
 
 // spustenie servera
-app.listen(3000, () => console.log(`Server vajbuje na adrese: http://localhost:3000`));
+app.listen(3000, () => console.log(`Server počúva na adrese: http://localhost:3000`));

@@ -6,10 +6,8 @@ const router = express.Router();
  * Uvodna stranka
  */
 router.get("/", async (req, res) => {
-    console.log(req.session)
     res.render('index/index.html.njk', {
-        article: await ArticleRepository.findFirst(),
-        user: req.session.user
+        article: await ArticleRepository.findFirst()
     });
 });
 

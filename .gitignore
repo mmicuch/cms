@@ -1,5 +1,4 @@
 .idea
 app/node_modules
-app/sessions/*.json
 docker/data
 .env

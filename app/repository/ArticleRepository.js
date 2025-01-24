@@ -31,5 +31,10 @@ async function findFirst() {
 
     return articles.pop();
 }
+async function deleteEvent(eventId){
+    await Db.query("DELETE FROM articles WHERE id = :id", {
+        id: eventId,
+    });
+}
 
-export {findAll, findFirst, find};
+export {findAll, findFirst, find, deleteEvent};

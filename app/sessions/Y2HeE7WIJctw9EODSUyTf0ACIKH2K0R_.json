@@ -1,0 +1,1 @@
+{"cookie":{"originalMaxAge":86400000,"expires":"2024-12-29T10:30:43.482Z","httpOnly":true,"path":"/"},"__lastAccess":1735381843482,"user":{"id":2,"username":"admin","password":"$argon2id$v=19$m=65536,t=3,p=4$nnvvR4WAEP08GRe+Lsgzxw$jq/HZndtfM104qnoT16HHOcIWDguFwSR31k9biQJy04","roles":["admin"]},"express-flash-message":{}}
