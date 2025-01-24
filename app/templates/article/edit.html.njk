@@ -1,0 +1,87 @@
+{% extends 'layout.html.njk' %}
+
+{% if article.id == 0 %}
+    {% set title = "Nový článok" %}
+{% else %}
+    {% set title = "Úprava článku" %}
+{% endif %}
+
+{% block css %}
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <form method="post" id="article-form" enctype="multipart/form-data">
+        <div class="card card-info mt-2">
+            <div class="card card-header">
+                {{ title }}
+            </div>
+            <div class="card-body">
+                <input type="hidden" name="id" value="{{ article.id }}">
+                <textarea id="content" name="content" hidden>{{ article.content | safe }}</textarea>
+                
+                <label for="title">Názov článku</label><br>
+                <input id="title" class="form-control w-100" name="title" type="text" value="{{ article.title }}" required>
+                <br>
+                
+                <label for="content">Obsah</label><br>
+                <div id="content-editor" style="height: 300px;">{{ article.content | safe }}</div>
+                <br>
+                
+                <label for="event_type">Typ udalosti</label><br>
+                <select id="event_type" name="event_type" class="form-control" required>
+                    <option value="Koncert" {% if article.event_type == 'Koncert' %}selected{% endif %}>Koncert</option>
+                    <option value="Divadlo" {% if article.event_type == 'Divadlo' %}selected{% endif %}>Divadlo</option>
+                    <option value="Iné" {% if article.event_type == 'Iné' %}selected{% endif %}>Iné</option>
+                </select>
+                <br>
+                
+                <label for="event_date">Dátum udalosti</label><br>
+                <input type="date" id="event_date" name="event_date" class="form-control" value="{{ article.event_date }}" required>
+                <br>
+                
+                <label for="location">Miesto</label><br>
+                <input type="text" id="location" name="location" class="form-control" value="{{ article.location }}" required>
+                <br>
+                
+                <label for="region">Región</label><br>
+                <input type="text" id="region" name="region" class="form-control" value="{{ article.region }}" required>
+                <br>
+                
+                <label for="public">Verejné</label><br>
+                <input type="checkbox" id="public" name="public" class="form-check-input" value="1" {% if article.public %}checked{% endif %}>
+                <br>
+                
+                <label for="image">Obrázok:</label><br>
+                <input type="file" name="image" id="image" accept=".jpg, .jpeg">
+            </div>
+            <div class="card-footer">
+                <input type="submit" class="btn btn-info" value="Uložiť">
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block footerJS %}
+    <!-- Include the Quill library -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+    <!-- Initialize Quill editor -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const quill = new Quill('#content-editor', {
+                theme: 'snow'
+            });
+
+            const form = document.getElementById('article-form');
+
+            // Pred osolanim formulara skopirujem obsah editora do skryteho elementu textarea
+            form.addEventListener('submit', function () {
+                const content = document.getElementById('content');
+                content.value = quill.root.innerHTML;
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ article.title }}</title>
+    <link rel="stylesheet" type="text/css" href="/public/style.css">
+</head>
+<body>
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.content }}</p>
+
+    <h2>Comments</h2>
+    <ul id="comments-list">
+        {% for message in messages %}
+            <li>{{ message.content }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Add a Comment</h3>
+    <form id="comment-form">
+        <textarea id="comment-content" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script src="/public/client.js"></script>
+</body>
+</html>

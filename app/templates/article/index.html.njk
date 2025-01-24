@@ -1,0 +1,36 @@
+{% extends 'layout.html.njk' %}
+
+{% block content %}
+    {% if user | is_granted('admin') %}
+        <a class="btn btn-success" href="/article/edit/0">Nový článok</a>
+    {% endif %}
+    {% for article in articles %}
+        <div class="card card-info mt-2">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>{{ article.title }}</span>
+                {% if user | is_granted('admin') %}
+                    <div class="btn-group btn-group-sm" role="group">
+                        <a type="button" class="btn btn-info float-right" href="/article/edit/{{ article.id }}">
+                            <span class="material-symbols-outlined">edit</span>
+                        </a>
+                        <a type="button" class="btn btn-danger" href="/article/delete/{{ article.id }}" onclick="return confirm('Naozaj chcete vymazať tento článok?')">
+                            <span class="material-symbols-outlined">delete</span>
+                        </a>
+
+                    </div>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                {% if article.id | img_exists %}
+                    <img class="img-thumbnail" style="float: left; margin: 0 10px 10px 0" src="/uploads/{{ article.id }}.jpg">
+                {% endif %}
+                {{ article.content | safe }}
+            </div>
+            <div class="card-footer text-end">
+                {{ article.lastUpdate | formatDate('dd. MM. yyyy H:mm:ss') }}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block title %}Index{% endblock %}

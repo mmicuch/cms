@@ -1,0 +1,46 @@
+services:
+  node:
+    container_name: cms-app
+
+    build:
+      context: ./docker/build/node_js
+
+    environment:
+      DB_HOST: cms-db
+      DB_DATABASE: cms
+      DB_USER: cms
+      DB_PASSWORD: ${DB_USER_PWD}
+
+    volumes:
+      - ./app:/opt/app
+
+    ports:
+      - "80:3000"
+
+  db:
+    container_name: cms-mariadb
+    build:
+      context: ./docker/build/mariadb
+    environment:
+      MARIADB_DATABASE: cms
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PWD}
+      MARIADB_USER: cms
+      MARIADB_PASSWORD: ${DB_USER_PWD}
+    networks:
+      default:
+        aliases:
+          - cms-db
+    #ports:
+    #   - "3306:3306"
+    volumes:
+      - ./docker/data/mariadb:/var/lib/mysql:delegated
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_ARBITRARY=0
+      - PMA_HOST=cms-db
+
+
